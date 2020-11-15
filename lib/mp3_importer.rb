@@ -1,3 +1,4 @@
+require 'pry'
 class MP3Importer
 attr_accessor :path
 
@@ -6,9 +7,11 @@ attr_accessor :path
   end
 
   def files
-  Dir.entries()
+   files = Dir.glob("#{path}/*.mp3").map {|file| file.gsub("#{path}/", "")}
+   files
   end
 
   def import
+    files.each {|song| Song.new_by_filename(song)}        
+    end
   end
-end
